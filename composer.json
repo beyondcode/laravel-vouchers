@@ -1,0 +1,57 @@
+{
+    "name": "beyondcode/laravel-vouchers",
+    "description": "Allow users to redeem vouchers that are bound to models..",
+    "keywords": [
+        "beyondcode",
+        "laravel-vouchers"
+    ],
+    "homepage": "https://github.com/beyondcode/laravel-vouchers",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marcel Pociot",
+            "email": "marcel@beyondco.de",
+            "homepage": "https://beyondcode.de",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/config": "~5.5.0|~5.6.0",
+        "illuminate/database": "~5.5.0|~5.6.0",
+        "illuminate/support": "~5.5.0|~5.6.0"
+    },
+    "require-dev": {
+        "larapack/dd": "^1.0",
+        "phpunit/phpunit": "^7.0",
+        "orchestra/testbench": "~3.5.0|~3.6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "BeyondCode\\Vouchers\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BeyondCode\\Vouchers\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BeyondCode\\Vouchers\\VouchersServiceProvider"
+            ],
+            "aliases": {
+                "Vouchers": "BeyondCode\\Vouchers\\VouchersFacade"
+            }
+        }
+    }
+}
