@@ -2,9 +2,11 @@
 
 namespace BeyondCode\Vouchers\Tests;
 
+use Event;
 use Vouchers;
 use BeyondCode\Vouchers\Tests\Models\Item;
 use BeyondCode\Vouchers\Tests\Models\User;
+use BeyondCode\Vouchers\Events\VoucherRedeemed;
 use BeyondCode\Vouchers\Exceptions\VoucherExpired;
 use BeyondCode\Vouchers\Exceptions\VoucherIsInvalid;
 use BeyondCode\Vouchers\Exceptions\VoucherAlreadyRedeemed;
@@ -65,5 +67,38 @@ class CanRedeemVouchersTest extends TestCase
         $voucher = $vouchers[0];
 
         $user->redeemCode($voucher->code);
+    }
+
+    /** @test */
+    public function users_can_redeem_voucher_models()
+    {
+        $this->expectException(VoucherAlreadyRedeemed::class);
+
+        $user = User::find(1);
+        $item = Item::create(['name' => 'Foo']);
+
+        $vouchers = Vouchers::create($item);
+        $voucher = $vouchers[0];
+
+        $user->redeemVoucher($voucher);
+        $user->redeemVoucher($voucher);
+    }
+
+    /** @test */
+    public function redeeming_vouchers_fires_an_event()
+    {
+        Event::fake();
+
+        $user = User::find(1);
+        $item = Item::create(['name' => 'Foo']);
+
+        $vouchers = Vouchers::create($item);
+        $voucher = $vouchers[0];
+
+        $user->redeemVoucher($voucher);
+
+        Event::assertDispatched(VoucherRedeemed::class, function ($e) use ($user, $voucher) {
+            return $e->user->id === $user->id && $e->voucher->id === $voucher->id;
+        });
     }
 }

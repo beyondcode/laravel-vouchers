@@ -19,7 +19,8 @@
         "php": "^7.1",
         "illuminate/config": "~5.5.0|~5.6.0",
         "illuminate/database": "~5.5.0|~5.6.0",
-        "illuminate/support": "~5.5.0|~5.6.0"
+        "illuminate/support": "~5.5.0|~5.6.0",
+        "mockery/mockery": "^1.1"
     },
     "require-dev": {
         "larapack/dd": "^1.0",
@@ -50,7 +51,7 @@
                 "BeyondCode\\Vouchers\\VouchersServiceProvider"
             ],
             "aliases": {
-                "Vouchers": "BeyondCode\\Vouchers\\VouchersFacade"
+                "Vouchers": "BeyondCode\\Vouchers\\Facades\\Vouchers"
             }
         }
     }
