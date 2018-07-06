@@ -13,9 +13,7 @@ return [
     'relation_table' => 'user_voucher',
 
     /*
-     * List of characters, promo code generated from.
-     * We have removed 1 (one) and I because with some
-     * fonts you can't find deference between them
+     * List of characters that will be used for voucher code generation.
      */
     'characters' => '23456789ABCDEFGHJKLMNPQRSTUVWXYZ',
 

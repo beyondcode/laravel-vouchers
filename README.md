@@ -186,6 +186,9 @@ In case you want to redeem an existing Voucher model, you can use the `redeemVou
 $user->redeemVoucher($voucher);
 ``` 
 
+After a user successfully redeemed a voucher, this package will fire a `BeyondCode\Vouchers\Events\VoucherRedeemed` event. The event contains the user instance and the voucher instance.
+You should listen to this event in order to perform the business logic of your application, when a user redeems a voucher.
+
 ## Handling Errors
 
 The `redeemCode` and `redeemVoucher` methods throw a couple of exceptions that you will want to catch and react to in your application:
