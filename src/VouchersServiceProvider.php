@@ -13,7 +13,7 @@ class VouchersServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/condfig.php' => config_path('vouchers.php'),
+                __DIR__.'/../config/config.php' => config_path('vouchers.php'),
             ], 'config');
 
 
