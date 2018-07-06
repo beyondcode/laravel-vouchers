@@ -187,6 +187,16 @@ $user->redeemVoucher($voucher);
 After a user successfully redeemed a voucher, this package will fire a `BeyondCode\Vouchers\Events\VoucherRedeemed` event. The event contains the user instance and the voucher instance.
 You should listen to this event in order to perform the business logic of your application, when a user redeems a voucher.
 
+### Accessing the vouchers associated model
+
+The `Voucher` model has a `model` relation, that will point to the associated Eloquent model:
+
+```php
+$voucher = $user->redeemCode('ABCD-EFGH');
+
+$videoCourse = $voucher->model;
+``` 
+
 ## Handling Errors
 
 The `redeemCode` and `redeemVoucher` methods throw a couple of exceptions that you will want to catch and react to in your application:
