@@ -118,7 +118,7 @@ You can create one or multiple vouchers by using the `Vouchers` facade:
 $videoCourse = VideoCourse::find(1);
 
 // Create 5 vouchers associated to the videoCourse model.
-$vouchers = Vouchers::create($associatedModel, 5);
+$vouchers = Vouchers::create($videoCourse, 5);
 ```
 
 The return value is an array containing all generated `Voucher` models. 
