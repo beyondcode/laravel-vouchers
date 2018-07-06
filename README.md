@@ -237,7 +237,7 @@ If you discover any security related issues, please email marcel@beyondco.de ins
 - [Marcel Pociot](https://github.com/mpociot)
 - [All Contributors](../../contributors)
 
-This package is heavily based on the Laravel Promocodes package from [Zura Gabievi](https://github.com/zgabievi). You can find the code on [GitHub](https://github.com/zgabievi/laravel-promocodes);
+This package is heavily based on the Laravel Promocodes package from [Zura Gabievi](https://github.com/zgabievi). You can find the code on [GitHub](https://github.com/zgabievi/laravel-promocodes).
 
 ## License
 
