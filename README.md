@@ -209,7 +209,7 @@ If a user tries to redeem an invalid code, the package will throw the following 
 
 All generated vouchers can only be redeemed once. If a user tries to redeem a voucher for a second time, or if another user already redeemed this voucher, the package will throw the following exception: `BeyondCode\Vouchers\Exceptions\VoucherAlreadyRedeemed::class`.
 
-### Voucher expires
+### Voucher expired
 
 If a user tries to redeem an expired voucher code, the package will throw the following exception: `BeyondCode\Vouchers\Exceptions\VoucherExpired`.
 
