@@ -2,6 +2,7 @@
 
 namespace BeyondCode\Vouchers;
 
+use BeyondCode\Vouchers\Exceptions\VoucherExpired;
 use BeyondCode\Vouchers\Exceptions\VoucherIsInvalid;
 use BeyondCode\Vouchers\Models\Voucher;
 use Illuminate\Database\Eloquent\Model;
@@ -61,6 +62,7 @@ class Vouchers
     /**
      * @param string $code
      * @throws VoucherIsInvalid
+     * @throws VoucherExpired
      * @return Voucher
      */
     public function check(string $code)
@@ -69,6 +71,9 @@ class Vouchers
 
         if ($voucher === null) {
             throw VoucherIsInvalid::withCode($code);
+        }
+        if ($voucher->isExpired()) {
+            throw VoucherExpired::create($voucher);
         }
 
         return $voucher;

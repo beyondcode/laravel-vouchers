@@ -11,6 +11,8 @@ class VouchersServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->loadTranslationsFrom(__DIR__.'/../translations', 'vouchers');
+
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/config.php' => config_path('vouchers.php'),
@@ -22,6 +24,10 @@ class VouchersServiceProvider extends ServiceProvider
                     __DIR__.'/../database/migrations/create_vouchers_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_vouchers_table.php'),
                 ], 'migrations');
             }
+
+            $this->publishes([
+                __DIR__.'/../translations' => resource_path('lang/vendor/vouchers'),
+            ], 'translations');
         }
     }
 
