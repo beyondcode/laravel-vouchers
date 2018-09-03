@@ -32,7 +32,7 @@ You can publish the migration with:
 php artisan vendor:publish --provider=BeyondCode\Vouchers\VouchersServiceProvider --tag="migrations"
 ```
 
-After the migration has been published you can create the media-table by running the migrations:
+After the migration has been published you can create the vouchers table by running the migrations:
 
 ```bash
 php artisan migrate
