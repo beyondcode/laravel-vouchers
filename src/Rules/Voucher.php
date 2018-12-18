@@ -12,7 +12,7 @@ class Voucher implements Rule
 {
     protected $isInvalid = false;
     protected $isExpired = false;
-    protected $wasRedeemd = false;
+    protected $wasRedeemed = false;
 
     /**
      * Determine if the validation rule passes.
@@ -37,7 +37,7 @@ class Voucher implements Rule
             $this->isExpired = true;
             return false;
         } catch (VoucherAlreadyRedeemed $exception) {
-            $this->wasRedeemd = true;
+            $this->wasRedeemed = true;
             return false;
         }
 
@@ -51,7 +51,7 @@ class Voucher implements Rule
      */
     public function message()
     {
-        if ($this->wasRedeemd) {
+        if ($this->wasRedeemed) {
             return trans('vouchers::validation.code_redeemed');
         }
         if ($this->isExpired) {
