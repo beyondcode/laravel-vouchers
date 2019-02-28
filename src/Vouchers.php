@@ -49,7 +49,7 @@ class Vouchers
         foreach ($this->generate($amount) as $voucherCode) {
             $vouchers[] = Voucher::create([
                 'model_id' => $model->getKey(),
-                'model_type' => get_class($model),
+                'model_type' => $model->getMorphClass(),
                 'code' => $voucherCode,
                 'data' => $data,
                 'expires_at' => $expires_at,
