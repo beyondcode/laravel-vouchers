@@ -13,6 +13,8 @@ class CreateVouchersTable extends Migration
     {
         $voucherTable = config('vouchers.table', 'vouchers');
         $pivotTable = config('vouchers.pivot_table', 'user_voucher');
+        $userTable = config('vouchers.user_table', 'users');
+        $foreignKey = config('vouchers.user_reference_key_name', 'user_id');
 
         Schema::create($voucherTable, function (Blueprint $table) {
             $table->increments('id');
@@ -25,11 +27,11 @@ class CreateVouchersTable extends Migration
 
         Schema::create($pivotTable, function (Blueprint $table) use ($voucherTable) {
             $table->increments('id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger($foreignKey);
             $table->unsignedInteger('voucher_id');
             $table->timestamp('redeemed_at');
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign($foreignKey)->references('id')->on($userTable);
             $table->foreign('voucher_id')->references('id')->on($voucherTable);
         });
     }

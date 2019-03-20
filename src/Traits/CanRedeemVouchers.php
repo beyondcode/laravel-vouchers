@@ -22,7 +22,7 @@ trait CanRedeemVouchers
     {
         $voucher = Vouchers::check($code);
 
-        if ($voucher->users()->wherePivot('user_id', $this->id)->exists()) {
+        if ($voucher->users()->wherePivot(config('vouchers.user_reference_key_name', 'user_id'), $this->id)->exists()) {
             throw VoucherAlreadyRedeemed::create($voucher);
         }
         if ($voucher->isExpired()) {

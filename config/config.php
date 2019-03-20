@@ -48,4 +48,15 @@ return [
      * The user model that belongs to vouchers.
      */
     'user_model' => \App\User::class,
+
+    /*
+     * The user model that belongs to vouchers.
+     */
+    'user_table' => 'users',
+
+
+    /*
+     * The user table reference key name
+     */
+    'user_reference_key_name' => 'user_id',
 ];
