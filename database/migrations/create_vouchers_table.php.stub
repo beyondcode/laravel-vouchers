@@ -25,7 +25,7 @@ class CreateVouchersTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create($pivotTable, function (Blueprint $table) use ($voucherTable) {
+        Schema::create($pivotTable, function (Blueprint $table) use ($voucherTable, $userTable, $foreignKey) {
             $table->increments('id');
             $table->unsignedInteger($foreignKey);
             $table->unsignedInteger('voucher_id');
