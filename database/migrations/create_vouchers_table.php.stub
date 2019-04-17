@@ -12,7 +12,7 @@ class CreateVouchersTable extends Migration
     public function up()
     {
         $voucherTable = config('vouchers.table', 'vouchers');
-        $pivotTable = config('vouchers.pivot_table', 'user_voucher');
+        $pivotTable = config('vouchers.relation_table', 'user_voucher');
 
         Schema::create($voucherTable, function (Blueprint $table) {
             $table->increments('id');
@@ -40,6 +40,6 @@ class CreateVouchersTable extends Migration
     public function down()
     {
         Schema::dropIfExists(config('vouchers.table', 'vouchers'));
-        Schema::dropIfExists(config('vouchers.pivot_table', 'user_voucher'));
+        Schema::dropIfExists(config('vouchers.relation_table', 'user_voucher'));
     }
 }
