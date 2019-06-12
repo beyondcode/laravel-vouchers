@@ -245,4 +245,6 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 ## Vallory (Fork)
 
-- composer require beyondcode/laravel-vouchers:dev-vallory
+```bash
+composer require beyondcode/laravel-vouchers:dev-vallory
+```
