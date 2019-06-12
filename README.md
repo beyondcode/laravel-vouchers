@@ -242,3 +242,7 @@ This package is heavily based on the Laravel Promocodes package from [Zura Gabie
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+## Vallory (Fork)
+
+- composer require beyondcode/laravel-vouchers:dev-vallory
