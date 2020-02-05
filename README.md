@@ -29,7 +29,7 @@ The package will automatically register itself.
 You can publish the migration with:
 
 ```bash
-php artisan vendor:publish --provider=BeyondCode\Vouchers\VouchersServiceProvider --tag="migrations"
+php artisan vendor:publish --provider="BeyondCode\Vouchers\VouchersServiceProvider" --tag="migrations"
 ```
 
 After the migration has been published you can create the vouchers table by running the migrations:
