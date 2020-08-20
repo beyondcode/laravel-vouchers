@@ -5,7 +5,7 @@ namespace BeyondCode\Vouchers\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \BeyondCode\Vouchers\VouchersClass
+ * @mixin \BeyondCode\Vouchers\Vouchers
  */
 class Vouchers extends Facade
 {
