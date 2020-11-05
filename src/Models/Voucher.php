@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Voucher extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'model_id',
         'model_type',
@@ -24,6 +29,11 @@ class Voucher extends Model
         'expires_at'
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
     protected $casts = [
         'data' => 'collection'
     ];
@@ -61,5 +71,15 @@ class Voucher extends Model
     public function isExpired()
     {
         return $this->expires_at ? Carbon::now()->gte($this->expires_at) : false;
+    }
+
+    /**
+     * Check if code is not expired.
+     *
+     * @return bool
+     */
+    public function isNotExpired()
+    {
+        return ! $this->isExpired();
     }
 }
