@@ -39,7 +39,7 @@ class CreateVouchersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(config('vouchers.pivot_table', 'user_voucher'));
+        Schema::dropIfExists(config('vouchers.relation_table', 'user_voucher'));
         Schema::dropIfExists(config('vouchers.table', 'vouchers'));
     }
 }
