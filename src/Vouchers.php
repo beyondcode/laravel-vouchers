@@ -11,10 +11,13 @@ class Vouchers
 {
     /** @var VoucherGenerator */
     private $generator;
+    /** @var \BeyondCode\Vouchers\Models\Voucher  */
+    private $voucherModel;
 
     public function __construct(VoucherGenerator $generator)
     {
         $this->generator = $generator;
+        $this->voucherModel = app(config('vouchers.model', Voucher::class));
     }
 
     /**
@@ -47,7 +50,7 @@ class Vouchers
         $vouchers = [];
 
         foreach ($this->generate($amount) as $voucherCode) {
-            $vouchers[] = Voucher::create([
+            $vouchers[] = $this->voucherModel->create([
                 'model_id' => $model->getKey(),
                 'model_type' => $model->getMorphClass(),
                 'code' => $voucherCode,
@@ -67,7 +70,7 @@ class Vouchers
      */
     public function check(string $code)
     {
-        $voucher = Voucher::whereCode($code)->first();
+        $voucher = $this->voucherModel->whereCode($code)->first();
 
         if (is_null($voucher)) {
             throw VoucherIsInvalid::withCode($code);
@@ -86,7 +89,7 @@ class Vouchers
     {
         $voucher = $this->generator->generateUnique();
 
-        while (Voucher::whereCode($voucher)->count() > 0) {
+        while ($this->voucherModel->whereCode($voucher)->count() > 0) {
             $voucher = $this->generator->generateUnique();
         }
 
