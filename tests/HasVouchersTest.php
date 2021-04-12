@@ -3,7 +3,6 @@
 namespace BeyondCode\Vouchers\Tests;
 
 use Vouchers;
-use BeyondCode\Vouchers\Models\Voucher;
 use BeyondCode\Vouchers\Tests\Models\Item;
 
 class HasVouchersTest extends TestCase
