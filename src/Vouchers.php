@@ -72,7 +72,7 @@ class Vouchers
     {
         $voucher = $this->voucherModel->whereCode($code)->first();
 
-        if ($voucher === null) {
+        if (is_null($voucher)) {
             throw VoucherIsInvalid::withCode($code);
         }
         if ($voucher->isExpired()) {
