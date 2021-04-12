@@ -10,7 +10,7 @@ return [
     /*
      * Model to use
      */
-    'implementation' => BeyondCode\Vouchers\Models\Voucher::class,
+    'model' => BeyondCode\Vouchers\Models\Voucher::class,
 
     /*
      * Database pivot table name for vouchers and users relation

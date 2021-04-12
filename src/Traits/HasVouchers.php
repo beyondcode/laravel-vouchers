@@ -14,7 +14,7 @@ trait HasVouchers
      */
     public function vouchers()
     {
-        return $this->morphMany(config('vouchers.implementation', Voucher::class), 'model');
+        return $this->morphMany(config('vouchers.model', Voucher::class), 'model');
     }
 
     /**

@@ -17,7 +17,7 @@ class Vouchers
     public function __construct(VoucherGenerator $generator)
     {
         $this->generator = $generator;
-        $this->voucherModel = app(config('vouchers.implementation', Voucher::class));
+        $this->voucherModel = app(config('vouchers.model', Voucher::class));
     }
 
     /**
