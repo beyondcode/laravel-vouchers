@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -39,7 +40,7 @@ class CreateVouchersTable extends Migration
         Schema::create($this->pivotTable, function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId("{$this->voucherTable}_id")->constrained($this->voucherTable);
+            $table->foreignId(Str::singular($this->voucherTable)."_id")->constrained($this->voucherTable);
             $table->timestamp('redeemed_at');
         });
     }
