@@ -41,7 +41,7 @@ php artisan migrate
 You can publish the config-file with:
 
 ```bash
-php artisan vendor:publish --provider="BeyondCode\Vouchers\VouchersServiceProvider" --tag="config"
+php artisan vendor:publish --provider=BeyondCode\Vouchers\VouchersServiceProvider --tag="config"
 ```
 
 This is the contents of the published config file:
@@ -106,7 +106,36 @@ The basic concept of this package is that you can create vouchers, that are asso
 
 Add the `BeyondCode\Vouchers\Traits\HasVouchers` trait to all your Eloquent models, that you want to be associated with vouchers.
 
+```php
+<?php
+
+namespace App\Models;
+
+use BeyondCode\Vouchers\Traits\CanRedeemVouchers;
+
+class User extends Authenticatable
+{
+    use CanRedeemVouchers;
+    
+}
+```
+
 In addition, add the `BeyondCode\Vouchers\Traits\CanRedeemVouchers` trait to your user model. This way users can easily redeem voucher codes and the package takes care of storing the voucher/user association in the database.
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use BeyondCode\Vouchers\Traits\HasVouchers;
+
+class VideoCourse extends Model
+{
+    use HasVouchers;
+    
+}
+```
 
 ## Creating Vouchers
 
