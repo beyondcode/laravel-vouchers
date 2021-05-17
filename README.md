@@ -41,7 +41,7 @@ php artisan migrate
 You can publish the config-file with:
 
 ```bash
-php artisan vendor:publish --provider=BeyondCode\Vouchers\VouchersServiceProvider --tag="config"
+php artisan vendor:publish --provider="BeyondCode\Vouchers\VouchersServiceProvider" --tag="config"
 ```
 
 This is the contents of the published config file:
