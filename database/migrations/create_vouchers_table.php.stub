@@ -15,7 +15,7 @@ class CreateVouchersTable extends Migration
         $pivotTable = config('vouchers.relation_table', 'user_voucher');
 
         Schema::create($voucherTable, function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('code', 32)->unique();
             $table->morphs('model');
             $table->text('data')->nullable();
@@ -24,13 +24,10 @@ class CreateVouchersTable extends Migration
         });
 
         Schema::create($pivotTable, function (Blueprint $table) use ($voucherTable) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('voucher_id');
+            $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId("{$voucherTable}_id")->constrained($voucherTable);
             $table->timestamp('redeemed_at');
-
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('voucher_id')->references('id')->on($voucherTable);
         });
     }
 
