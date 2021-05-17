@@ -7,14 +7,27 @@ use Illuminate\Database\Migrations\Migration;
 class CreateVouchersTable extends Migration
 {
     /**
+     * @var string
+     */
+    protected string $pivotTable;
+
+    /**
+     * @var string
+     */
+    protected string $voucherTable;
+
+    public function __construct()
+    {
+        $this->pivotTable = config('vouchers.relation_table', 'user_voucher');
+        $this->voucherTable = config('vouchers.table', 'vouchers');
+    }
+
+    /**
      * Run the migrations.
      */
     public function up()
     {
-        $voucherTable = config('vouchers.table', 'vouchers');
-        $pivotTable = config('vouchers.relation_table', 'user_voucher');
-
-        Schema::create($voucherTable, function (Blueprint $table) {
+        Schema::create($this->voucherTable, function (Blueprint $table) {
             $table->id();
             $table->string('code', 32)->unique();
             $table->morphs('model');
@@ -23,10 +36,10 @@ class CreateVouchersTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create($pivotTable, function (Blueprint $table) use ($voucherTable) {
+        Schema::create($this->pivotTable, function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId("{$voucherTable}_id")->constrained($voucherTable);
+            $table->foreignId("{$this->voucherTable}_id")->constrained($this->voucherTable);
             $table->timestamp('redeemed_at');
         });
     }
@@ -36,7 +49,13 @@ class CreateVouchersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(config('vouchers.relation_table', 'user_voucher'));
-        Schema::dropIfExists(config('vouchers.table', 'vouchers'));
+        // Disable database foreign key constraints
+        Schema::disableForeignKeyConstraints();
+
+        Schema::dropIfExists($this->pivotTable);
+        Schema::dropIfExists($this->voucherTable);
+
+        // Enable database foreign key constraints
+        Schema::enableForeignKeyConstraints();
     }
 }
