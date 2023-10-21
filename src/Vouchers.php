@@ -83,6 +83,23 @@ class Vouchers
     }
 
     /**
+     * @param string $code
+     * @return bool
+     */
+    public function isValid(string $code): bool
+    {
+        try {
+            $this->check($code);
+        } catch (VoucherIsInvalid $exception) {
+            return false;
+        } catch (VoucherExpired $exception) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * @return string
      */
     protected function getUniqueVoucher(): string
