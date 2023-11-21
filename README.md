@@ -220,6 +220,14 @@ $voucher = $user->redeemCode('ABCD-EFGH');
 $videoCourse = $voucher->model;
 ```
 
+## Validating Vouchers & Voucher Codes
+The `isValidCode` and `isValidVoucher` methods on the `Vouchers` facade allow you to check if a voucher code is valid or if a voucher model is valid.
+
+```php
+Vouchers::isValidCode('ABCD-EFGH'); // true or false
+Vouchers::isValidVoucher($voucher); // true or false
+```
+
 ## Handling Errors
 
 The `redeemCode` and `redeemVoucher` methods throw a couple of exceptions that you will want to catch and react to in your application:
