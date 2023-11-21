@@ -86,7 +86,7 @@ class Vouchers
      * @param string $code
      * @return bool
      */
-    public function isValid(string $code): bool
+    public function isValidCode(string $code): bool
     {
         try {
             $this->check($code);
@@ -97,6 +97,15 @@ class Vouchers
         }
 
         return true;
+    }
+
+    /**
+     * @param Voucher $voucher
+     * @return bool
+     */
+    public function isValidVoucher(Voucher $voucher): bool
+    {
+        return $this->isValidCode($voucher->code);
     }
 
     /**
