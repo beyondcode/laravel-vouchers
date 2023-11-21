@@ -130,13 +130,13 @@ class VideoCourse extends Model
     use HasVouchers;
     # ...
 }
-
+```
 ## Creating Vouchers
 
 ### Using the facade
 
 You can create one or multiple vouchers by using the `Vouchers` facade:
-
+```
 ```php
 $videoCourse = VideoCourse::find(1);
 
