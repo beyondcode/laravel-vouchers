@@ -1,8 +1,6 @@
 # Laravel Vouchers 🎟
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/beyondcode/laravel-vouchers.svg?style=flat-square)](https://packagist.org/packages/beyondcode/laravel-vouchers)
-[![Build Status](https://img.shields.io/travis/beyondcode/laravel-vouchers/master.svg?style=flat-square)](https://travis-ci.org/beyondcode/laravel-vouchers)
-[![Quality Score](https://img.shields.io/scrutinizer/g/beyondcode/laravel-vouchers.svg?style=flat-square)](https://scrutinizer-ci.com/g/beyondcode/laravel-vouchers)
 [![Total Downloads](https://img.shields.io/packagist/dt/beyondcode/laravel-vouchers.svg?style=flat-square)](https://packagist.org/packages/beyondcode/laravel-vouchers)
 
 This package can associate vouchers with your Eloquent models. This might come in handy, if you need to associate voucher codes with content that is stored in your Eloquent models.
@@ -130,7 +128,7 @@ class VideoCourse extends Model
     use HasVouchers;
     # ...
 }
-
+```
 ## Creating Vouchers
 
 ### Using the facade
@@ -218,6 +216,14 @@ The `Voucher` model has a `model` relation, that will point to the associated El
 $voucher = $user->redeemCode('ABCD-EFGH');
 
 $videoCourse = $voucher->model;
+```
+
+## Validating Vouchers & Voucher Codes
+The `isValidCode` and `isValidVoucher` methods on the `Vouchers` facade allow you to check if a voucher code is valid or if a voucher model is valid.
+
+```php
+Vouchers::isValidCode('ABCD-EFGH'); // true or false
+Vouchers::isValidVoucher($voucher); // true or false
 ```
 
 ## Handling Errors
