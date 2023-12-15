@@ -15,7 +15,6 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         php: [7.4, 8.0, 8.1]
         laravel: [8.*, 10.*]
-        stability: [prefer-lowest, prefer-stable]
         exclude:
           - php: 7.4
             laravel: 10.*
@@ -27,7 +26,7 @@ jobs:
           - laravel: 8.*
             testbench: ^6.6
 
-    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.os }}
 
     steps:
       - name: Checkout code
