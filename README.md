@@ -1,8 +1,6 @@
 # Laravel Vouchers 🎟
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/beyondcode/laravel-vouchers.svg?style=flat-square)](https://packagist.org/packages/beyondcode/laravel-vouchers)
-[![Build Status](https://img.shields.io/travis/beyondcode/laravel-vouchers/master.svg?style=flat-square)](https://travis-ci.org/beyondcode/laravel-vouchers)
-[![Quality Score](https://img.shields.io/scrutinizer/g/beyondcode/laravel-vouchers.svg?style=flat-square)](https://scrutinizer-ci.com/g/beyondcode/laravel-vouchers)
 [![Total Downloads](https://img.shields.io/packagist/dt/beyondcode/laravel-vouchers.svg?style=flat-square)](https://packagist.org/packages/beyondcode/laravel-vouchers)
 
 This package can associate vouchers with your Eloquent models. This might come in handy, if you need to associate voucher codes with content that is stored in your Eloquent models.
