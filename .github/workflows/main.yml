@@ -27,9 +27,20 @@ jobs:
           - 'prefer-stable'
 
         exclude:
+          - laravel: '11.*'
+            php: '8.2'
+          - laravel: '11.*'
+            php: '8.1'
+          - laravel: '11.*'
+            php: '8.0'
           - laravel: '10.*'
             php: '8.0'
+
+
         include:
+          - laravel: '11.*'
+            php: '8.3'
+            testbench: '9.*'
           - laravel: '10.*'
             php: '8.3'
             testbench: '8.*'
@@ -69,7 +80,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -79,9 +90,17 @@ jobs:
           coverage: none
 
       - name: Install dependencies
+        if: matrix.laravel != '11.*' || matrix.php != '8.3'
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
+          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
+
+      - name: Install dependencies
+        if: matrix.laravel == '11.*' && matrix.php == '8.3'
+        run: |
+          composer require "laravel/framework:11.*" "orchestra/testbench:9.*" --no-interaction --no-update --dev
+          composer update --prefer-stable --prefer-dist --no-interaction
+
 
       - name: Execute tests
         run: vendor/bin/phpunit

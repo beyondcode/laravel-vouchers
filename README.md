@@ -39,10 +39,10 @@ php artisan migrate
 You can publish the config-file with:
 
 ```bash
-php artisan vendor:publish --provider=BeyondCode\Vouchers\VouchersServiceProvider --tag="config"
+php artisan vendor:publish --provider="BeyondCode\Vouchers\VouchersServiceProvider" --tag="config"
 ```
 
-This is the contents of the published config file:
+This is the content of the published config file:
 
 ```php
 <?php
@@ -97,6 +97,14 @@ return [
     'user_model' => \App\User::class,
 ];
 ```
+
+If necessary, you can publish the translation files for further customization:
+
+```bash
+php artisan vendor:publish --provider="BeyondCode\Vouchers\VouchersServiceProvider" --tag="translations"
+```
+
+You can access the translations of the package like so: `__('vouchers::validation.code_invalid')`.
 
 ## Usage
 
