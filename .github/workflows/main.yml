@@ -97,7 +97,9 @@ jobs:
 
       - name: Install dependencies
         if: matrix.laravel == '11.*' && matrix.php == '8.3'
-        run: composer update --prefer-stable --prefer-dist --no-interaction
+        run: |
+          composer require "laravel/framework:11.*" "orchestra/testbench:9.*" --no-interaction --no-update
+          composer update --prefer-stable --prefer-dist --no-interaction
 
 
       - name: Execute tests
