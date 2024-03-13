@@ -20,6 +20,7 @@ jobs:
           - '8.1'
           - '8.0'
         laravel:
+          - '11.*'
           - '10.*'
           - '9.*'
           - '8.*'
@@ -29,6 +30,8 @@ jobs:
         exclude:
           - laravel: '10.*'
             php: '8.0'
+          - laravel: '11.*'
+            php: ['8.0', '8.1']   
         include:
           - laravel: '11.*'
             php: '8.3'
@@ -86,7 +89,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --dev --no-interaction --no-update
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
