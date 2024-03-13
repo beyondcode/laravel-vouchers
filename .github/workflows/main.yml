@@ -103,4 +103,10 @@ jobs:
 
 
       - name: Execute tests
+        if: matrix.laravel != '11.*' || matrix.php != '8.3'
         run: vendor/bin/phpunit
+
+
+      - name: Execute tests
+        if: matrix.laravel == '11.*' && matrix.php == '8.3'
+        run: vendor/bin/phpunit --no-configuration
