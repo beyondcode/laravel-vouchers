@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['8.3', '8.2', '8.1', '8.0']
+        php: ['8.4', '8.3', '8.2', '8.1', '8.0']
         laravel: ['8.*', '9.*', '10.*', '12.*']
         dependency-version: [prefer-stable]
         exclude:
@@ -92,7 +92,7 @@ jobs:
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
       - name: Install dependencies
-        if: "matrix.laravel == '11.*' && matrix.php == '8.3'"
+        if: "matrix.laravel == '11.*' && matrix.php == '8.3'" || "matrix.laravel == '12.*' && matrix.php == '8.3'"
         run: |
           composer require "laravel/framework:11.*" "orchestra/testbench:9.*" --no-interaction --no-update --dev
           composer update --prefer-stable --prefer-dist --no-interaction
