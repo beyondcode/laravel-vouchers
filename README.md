@@ -251,7 +251,7 @@ All generated vouchers can only be redeemed once. If a user tries to redeem a vo
 If a user tries to redeem an expired voucher code, the package will throw the following exception: `BeyondCode\Vouchers\Exceptions\VoucherExpired`.
 
 
-### Testing
+## Testing
 
 ``` bash
 composer test
