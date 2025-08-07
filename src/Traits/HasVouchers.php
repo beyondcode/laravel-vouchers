@@ -14,7 +14,7 @@ trait HasVouchers
      */
     public function vouchers()
     {
-        return $this->morphMany(Voucher::class, 'model');
+        return $this->morphMany(config('vouchers.model', Voucher::class), 'model');
     }
 
     /**
@@ -35,8 +35,6 @@ trait HasVouchers
      */
     public function createVoucher(array $data = [], $expires_at = null)
     {
-        $vouchers = Vouchers::create($this, 1, $data, $expires_at);
-
-        return $vouchers[0];
+        return $this->createVouchers(1, $data, $expires_at)[0];
     }
 }

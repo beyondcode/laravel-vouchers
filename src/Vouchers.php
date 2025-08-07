@@ -11,10 +11,13 @@ class Vouchers
 {
     /** @var VoucherGenerator */
     private $generator;
+    /** @var \BeyondCode\Vouchers\Models\Voucher  */
+    private $voucherModel;
 
     public function __construct(VoucherGenerator $generator)
     {
         $this->generator = $generator;
+        $this->voucherModel = app(config('vouchers.model', Voucher::class));
     }
 
     /**
@@ -47,7 +50,7 @@ class Vouchers
         $vouchers = [];
 
         foreach ($this->generate($amount) as $voucherCode) {
-            $vouchers[] = Voucher::create([
+            $vouchers[] = $this->voucherModel->create([
                 'model_id' => $model->getKey(),
                 'model_type' => $model->getMorphClass(),
                 'code' => $voucherCode,
@@ -67,9 +70,9 @@ class Vouchers
      */
     public function check(string $code)
     {
-        $voucher = Voucher::whereCode($code)->first();
+        $voucher = $this->voucherModel->whereCode($code)->first();
 
-        if ($voucher === null) {
+        if (is_null($voucher)) {
             throw VoucherIsInvalid::withCode($code);
         }
         if ($voucher->isExpired()) {
@@ -80,13 +83,39 @@ class Vouchers
     }
 
     /**
+     * @param string $code
+     * @return bool
+     */
+    public function isValidCode(string $code): bool
+    {
+        try {
+            $this->check($code);
+        } catch (VoucherIsInvalid $exception) {
+            return false;
+        } catch (VoucherExpired $exception) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @param Voucher $voucher
+     * @return bool
+     */
+    public function isValidVoucher(Voucher $voucher): bool
+    {
+        return $this->isValidCode($voucher->code);
+    }
+
+    /**
      * @return string
      */
     protected function getUniqueVoucher(): string
     {
         $voucher = $this->generator->generateUnique();
 
-        while (Voucher::whereCode($voucher)->count() > 0) {
+        while ($this->voucherModel->whereCode($voucher)->count() > 0) {
             $voucher = $this->generator->generateUnique();
         }
 

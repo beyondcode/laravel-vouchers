@@ -101,4 +101,28 @@ class CanRedeemVouchersTest extends TestCase
             return $e->user->id === $user->id && $e->voucher->id === $voucher->id;
         });
     }
+
+    public function test_is_valid_code()
+    {
+        $this->assertFalse(Vouchers::isValidCode('invalid'));
+
+        $item = Item::create(['name' => 'Foo']);
+
+        $voucher = $item->createVoucher();
+
+        $this->assertTrue(Vouchers::isValidCode($voucher->code));
+    }
+
+    public function test_is_valid_voucher()
+    {
+        $item = Item::create(['name' => 'Foo']);
+        $voucher = $item->createVoucher([], today()->subDay());
+
+        $this->assertFalse(Vouchers::isValidVoucher($voucher));
+
+        $item = Item::create(['name' => 'Foo']);
+        $voucher = $item->createVoucher();
+
+        $this->assertTrue(Vouchers::isValidVoucher($voucher));
+    }
 }

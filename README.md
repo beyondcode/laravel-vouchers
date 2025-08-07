@@ -1,8 +1,6 @@
 # Laravel Vouchers 🎟
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/beyondcode/laravel-vouchers.svg?style=flat-square)](https://packagist.org/packages/beyondcode/laravel-vouchers)
-[![Build Status](https://img.shields.io/travis/beyondcode/laravel-vouchers/master.svg?style=flat-square)](https://travis-ci.org/beyondcode/laravel-vouchers)
-[![Quality Score](https://img.shields.io/scrutinizer/g/beyondcode/laravel-vouchers.svg?style=flat-square)](https://scrutinizer-ci.com/g/beyondcode/laravel-vouchers)
 [![Total Downloads](https://img.shields.io/packagist/dt/beyondcode/laravel-vouchers.svg?style=flat-square)](https://packagist.org/packages/beyondcode/laravel-vouchers)
 
 This package can associate vouchers with your Eloquent models. This might come in handy, if you need to associate voucher codes with content that is stored in your Eloquent models.
@@ -29,7 +27,7 @@ The package will automatically register itself.
 You can publish the migration with:
 
 ```bash
-php artisan vendor:publish --provider=BeyondCode\Vouchers\VouchersServiceProvider --tag="migrations"
+php artisan vendor:publish --provider="BeyondCode\Vouchers\VouchersServiceProvider" --tag="migrations"
 ```
 
 After the migration has been published you can create the vouchers table by running the migrations:
@@ -41,10 +39,10 @@ php artisan migrate
 You can publish the config-file with:
 
 ```bash
-php artisan vendor:publish --provider=BeyondCode\Vouchers\VouchersServiceProvider --tag="config"
+php artisan vendor:publish --provider="BeyondCode\Vouchers\VouchersServiceProvider" --tag="config"
 ```
 
-This is the contents of the published config file:
+This is the content of the published config file:
 
 ```php
 <?php
@@ -100,14 +98,45 @@ return [
 ];
 ```
 
+If necessary, you can publish the translation files for further customization:
+
+```bash
+php artisan vendor:publish --provider="BeyondCode\Vouchers\VouchersServiceProvider" --tag="translations"
+```
+
+You can access the translations of the package like so: `__('vouchers::validation.code_invalid')`.
+
 ## Usage
 
 The basic concept of this package is that you can create vouchers, that are associated with a specific model. For example, you could have an application that sells online video courses and a voucher would give a user access to one specific video course.
 
 Add the `BeyondCode\Vouchers\Traits\HasVouchers` trait to all your Eloquent models, that you want to be associated with vouchers.
 
+```php
+namespace App\Models;
+
+use BeyondCode\Vouchers\Traits\CanRedeemVouchers;
+
+class User extends Authenticatable
+{
+    use CanRedeemVouchers;
+    # ...
+}
+```
+
 In addition, add the `BeyondCode\Vouchers\Traits\CanRedeemVouchers` trait to your user model. This way users can easily redeem voucher codes and the package takes care of storing the voucher/user association in the database.
 
+```php
+namespace App\Models;
+
+use BeyondCode\Vouchers\Traits\HasVouchers;
+
+class VideoCourse extends Model
+{
+    use HasVouchers;
+    # ...
+}
+```
 ## Creating Vouchers
 
 ### Using the facade
@@ -121,7 +150,7 @@ $videoCourse = VideoCourse::find(1);
 $vouchers = Vouchers::create($videoCourse, 5);
 ```
 
-The return value is an array containing all generated `Voucher` models. 
+The return value is an array containing all generated `Voucher` models.
 
 The Voucher model has a property `code` which contains the generated voucher code.
 
@@ -182,7 +211,7 @@ In case you want to redeem an existing Voucher model, you can use the `redeemVou
 
 ```php
 $user->redeemVoucher($voucher);
-``` 
+```
 
 After a user successfully redeemed a voucher, this package will fire a `BeyondCode\Vouchers\Events\VoucherRedeemed` event. The event contains the user instance and the voucher instance.
 You should listen to this event in order to perform the business logic of your application, when a user redeems a voucher.
@@ -195,7 +224,15 @@ The `Voucher` model has a `model` relation, that will point to the associated El
 $voucher = $user->redeemCode('ABCD-EFGH');
 
 $videoCourse = $voucher->model;
-``` 
+```
+
+## Validating Vouchers & Voucher Codes
+The `isValidCode` and `isValidVoucher` methods on the `Vouchers` facade allow you to check if a voucher code is valid or if a voucher model is valid.
+
+```php
+Vouchers::isValidCode('ABCD-EFGH'); // true or false
+Vouchers::isValidVoucher($voucher); // true or false
+```
 
 ## Handling Errors
 
@@ -214,7 +251,7 @@ All generated vouchers can only be redeemed once. If a user tries to redeem a vo
 If a user tries to redeem an expired voucher code, the package will throw the following exception: `BeyondCode\Vouchers\Exceptions\VoucherExpired`.
 
 
-### Testing
+## Testing
 
 ``` bash
 composer test

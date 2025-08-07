@@ -17,7 +17,7 @@ class CreateVouchersTable extends Migration
         $foreignKey = config('vouchers.user_reference_key_name', 'user_id');
 
         Schema::create($voucherTable, function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('code', 32)->unique();
             $table->morphs('model');
             $table->text('data')->nullable();
@@ -29,6 +29,7 @@ class CreateVouchersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger($foreignKey);
             $table->unsignedInteger('voucher_id');
+
             $table->timestamp('redeemed_at');
 
             $table->foreign($foreignKey)->references('id')->on($userTable);
@@ -41,7 +42,7 @@ class CreateVouchersTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists(config('vouchers.relation_table', 'user_voucher'));
         Schema::dropIfExists(config('vouchers.table', 'vouchers'));
-        Schema::dropIfExists(config('vouchers.pivot_table', 'user_voucher'));
     }
 }

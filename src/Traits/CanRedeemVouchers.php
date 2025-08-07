@@ -2,7 +2,7 @@
 
 namespace BeyondCode\Vouchers\Traits;
 
-use Vouchers;
+use BeyondCode\Vouchers\Facades\Vouchers;
 use BeyondCode\Vouchers\Models\Voucher;
 use BeyondCode\Vouchers\Events\VoucherRedeemed;
 use BeyondCode\Vouchers\Exceptions\VoucherExpired;

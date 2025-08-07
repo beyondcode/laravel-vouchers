@@ -8,6 +8,11 @@ return [
     'table' => 'vouchers',
 
     /*
+     * Model to use
+     */
+    'model' => BeyondCode\Vouchers\Models\Voucher::class,
+
+    /*
      * Database pivot table name for vouchers and users relation
      */
     'relation_table' => 'user_voucher',

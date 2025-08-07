@@ -12,7 +12,7 @@ class GeneratorTest extends \PHPUnit\Framework\TestCase
         $generator = new VoucherGenerator('1234567890', '********');
         $voucher = $generator->generate();
 
-        $this->assertRegExp('/^[0-9]/', $voucher);
+        $this->assertMatchesRegularExpression('/^[0-9]/', $voucher);
     }
 
     /** @test */
@@ -57,6 +57,6 @@ class GeneratorTest extends \PHPUnit\Framework\TestCase
         $generator = new VoucherGenerator('ABCDEFGH', '* * * *');
         $voucher = $generator->generate();
 
-        $this->assertRegExp('/(.*)\s(.*)\s(.*)\s(.*)/', $voucher);
+        $this->assertMatchesRegularExpression('/(.*)\s(.*)\s(.*)\s(.*)/', $voucher);
     }
 }
